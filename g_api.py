@@ -1,6 +1,29 @@
 import requests
 
 
+def detect_language(text):
+    url = "https://translate.googleapis.com/translate_a/single"
+
+    params = {
+        "client": "gtx",
+        "sl": "auto",
+        "tl": "en",
+        "dt": "t",
+        "q": text
+    }
+
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        response_json = response.json()
+        
+        detected_language = response_json[2] if len(response_json) > 2 else None
+        return detected_language
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error: {e}")
+        return None
+ 
 
 def translate(text, target_language, source_language):
     url = "https://translate.googleapis.com/translate_a/single"
