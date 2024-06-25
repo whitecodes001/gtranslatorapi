@@ -45,5 +45,5 @@ def translate(text, target_language, source_language):
         return translated_text
 
     except requests.exceptions.RequestException as e:
-        print(f"Error: {e}")
+        print(f"Error:{e}")
         return None
